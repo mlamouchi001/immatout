@@ -21,6 +21,8 @@ ARG CACHEBUST=2026-04-21-03
 ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
+COPY --from=deps /app/packages/calc/node_modules ./packages/calc/node_modules
+COPY --from=deps /app/packages/data/node_modules ./packages/data/node_modules
 COPY . .
 RUN mkdir -p ./apps/web/public
 RUN pnpm --filter @immatout/web exec prisma generate
