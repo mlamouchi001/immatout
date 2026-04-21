@@ -1,0 +1,485 @@
+{
+  "version": "2026-04-19",
+  "engineVersion": "0.2.0",
+  "notes": "Cas de vérité terrain pour validation du moteur. Les montants sont exprimés en centimes (pas d'euros flottants). Base de contrôle : grille officielle service-public.gouv.fr F35947 (Y3), F35950 (Y6), arrêtés régionaux 2026 (Y1), CIBS L.421-* (Y2/Y4/Y5).",
+  "cases": [
+    {
+      "id": "fr-new-vp-idf-citadine",
+      "description": "Renault Clio 100 ch essence neuve, IDF, 5 CV, 118 g CO2, 1200 kg, achat après 2026-03-01",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "ESSENCE",
+          "fiscalHorsepower": 5,
+          "firstRegistrationDate": "2026-03-15",
+          "co2WltpGPerKm": 118,
+          "massInRunningOrderKg": 1200
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "IDF",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 61851,
+        "breakdown": {
+          "Y1": 34475,
+          "Y2": 0,
+          "Y3": 26000,
+          "Y4": 1100,
+          "Y5": 276,
+          "Y6": 0
+        }
+      }
+    },
+    {
+      "id": "fr-new-vp-pac-berline",
+      "description": "Peugeot 308 essence neuve, PACA, 7 CV, 130 g CO2, 1400 kg",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "ESSENCE",
+          "fiscalHorsepower": 7,
+          "firstRegistrationDate": "2026-02-01",
+          "co2WltpGPerKm": 130,
+          "massInRunningOrderKg": 1400
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "PAC",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 141676,
+        "breakdown": {
+          "Y1": 42000,
+          "Y2": 0,
+          "Y3": 98300,
+          "Y4": 1100,
+          "Y5": 276,
+          "Y6": 0
+        }
+      }
+    },
+    {
+      "id": "fr-new-vp-ara-ev",
+      "description": "Renault Zoé électrique neuve, ARA, 4 CV, 0 g CO2, 1800 kg",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "ELECTRIC",
+          "fiscalHorsepower": 4,
+          "firstRegistrationDate": "2026-02-01",
+          "co2WltpGPerKm": 0,
+          "massInRunningOrderKg": 1800
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "ARA",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 1376,
+        "breakdown": { "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "fr-new-vp-idf-phev",
+      "description": "PHEV IDF, 7 CV, 40 g CO2, 1800 kg (abattement 200 kg → 1600 kg taxable)",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "PHEV",
+          "fiscalHorsepower": 7,
+          "firstRegistrationDate": "2026-03-15",
+          "co2WltpGPerKm": 40,
+          "massInRunningOrderKg": 1800
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "IDF",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 149641,
+        "breakdown": {
+          "Y1": 48265,
+          "Y2": 0,
+          "Y3": 0,
+          "Y4": 1100,
+          "Y5": 276,
+          "Y6": 100000
+        }
+      }
+    },
+    {
+      "id": "fr-new-vp-nor-famille-phev",
+      "description": "PHEV famille 3 enfants, NOR, 8 CV, 30 g CO2, 2000 kg (abattement −200 PHEV −600 famille = 1200 kg taxable)",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "PHEV",
+          "fiscalHorsepower": 8,
+          "firstRegistrationDate": "2026-01-01",
+          "co2WltpGPerKm": 30,
+          "massInRunningOrderKg": 2000
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "NOR",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 3, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 49376,
+        "breakdown": { "Y1": 48000, "Y2": 0, "Y3": 0, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "fr-new-vp-over-10-years-y1-halved",
+      "description": "Véhicule hérité 12 ans, BFC, 8 CV, 150 g (pas de Y3 car FR_USED), 1400 kg",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "ESSENCE",
+          "fiscalHorsepower": 8,
+          "firstRegistrationDate": "2014-03-01",
+          "co2WltpGPerKm": 150,
+          "massInRunningOrderKg": 1400
+        },
+        "vehicleCase": "FR_USED",
+        "region": "BFC",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 25376,
+        "breakdown": { "Y1": 24000, "Y2": 0, "Y3": 0, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "import-eu-used-recent",
+      "description": "Import UE occasion 45 mois (coef décote 33 %), IDF, 8 CV, 150 g, 1800 kg",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "DIESEL",
+          "fiscalHorsepower": 8,
+          "firstRegistrationDate": "2022-07-01",
+          "co2WltpGPerKm": 150,
+          "massInRunningOrderKg": 1800
+        },
+        "vehicleCase": "IMPORT_EU_USED",
+        "region": "IDF",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 438771,
+        "breakdown": {
+          "Y1": 55160,
+          "Y2": 0,
+          "Y3": 147735,
+          "Y4": 1100,
+          "Y5": 276,
+          "Y6": 234500
+        }
+      }
+    },
+    {
+      "id": "import-eu-used-over-15y",
+      "description": "Import UE occasion 20 ans, GES, 6 CV, 180 g, 1800 kg — exonération totale Y3/Y6 + Y1 divisée par 2",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "DIESEL",
+          "fiscalHorsepower": 6,
+          "firstRegistrationDate": "2006-01-01",
+          "co2WltpGPerKm": 180,
+          "massInRunningOrderKg": 1800
+        },
+        "vehicleCase": "IMPORT_EU_USED",
+        "region": "GES",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 19376,
+        "breakdown": { "Y1": 18000, "Y2": 0, "Y3": 0, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "fr-new-vu-light",
+      "description": "Utilitaire léger neuf, PDL, 6 CV, PTAC 3200 kg → Y2 = 34 €",
+      "input": {
+        "vehicle": {
+          "genre": "VU",
+          "energy": "DIESEL",
+          "fiscalHorsepower": 6,
+          "firstRegistrationDate": "2026-01-01",
+          "co2WltpGPerKm": 180,
+          "massInRunningOrderKg": 1800,
+          "totalAuthorizedLadenMassKg": 3200
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "PDL",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 35376,
+        "breakdown": { "Y1": 30600, "Y2": 3400, "Y3": 0, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "fr-new-trr",
+      "description": "Tracteur routier neuf, NAQ, 15 CV → Y2 = 305 €",
+      "input": {
+        "vehicle": {
+          "genre": "TRR",
+          "energy": "DIESEL",
+          "fiscalHorsepower": 15,
+          "firstRegistrationDate": "2026-01-01",
+          "co2WltpGPerKm": 0,
+          "massInRunningOrderKg": 7000,
+          "totalAuthorizedLadenMassKg": 18000
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "NAQ",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 118876,
+        "breakdown": { "Y1": 87000, "Y2": 30500, "Y3": 0, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "fr-new-malus-cap-reached",
+      "description": "VP neuf extrême 250 g CO2 + 2500 kg → plafond global 80 000 €",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "ESSENCE",
+          "fiscalHorsepower": 20,
+          "firstRegistrationDate": "2026-02-01",
+          "co2WltpGPerKm": 250,
+          "massInRunningOrderKg": 2500
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "PAC",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 8121376,
+        "breakdown": {
+          "Y1": 120000,
+          "Y2": 0,
+          "Y3": 8000000,
+          "Y4": 1100,
+          "Y5": 276,
+          "Y6": 0
+        }
+      }
+    },
+    {
+      "id": "fr-new-cmi-invalidite",
+      "description": "VP thermique avec titulaire CMI-invalidité → Y1/Y3/Y6 = 0",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "ESSENCE",
+          "fiscalHorsepower": 9,
+          "firstRegistrationDate": "2026-01-01",
+          "co2WltpGPerKm": 180,
+          "massInRunningOrderKg": 2200
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "IDF",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": true, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 1376,
+        "breakdown": { "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "fr-new-8seats-legal-entity",
+      "description": "Van 9 places personne morale (abattement 600 kg), 2100 kg → Y6 = 0",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "DIESEL",
+          "fiscalHorsepower": 10,
+          "firstRegistrationDate": "2026-01-01",
+          "co2WltpGPerKm": 150,
+          "massInRunningOrderKg": 2100,
+          "seats": 9
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "OCC",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": true }
+      },
+      "expected": {
+        "totalCents": 488776,
+        "breakdown": { "Y1": 59500, "Y2": 0, "Y3": 427900, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "fr-new-mayotte-cheap",
+      "description": "VP neuf essence à Mayotte (tarif CV le plus bas de France)",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "ESSENCE",
+          "fiscalHorsepower": 6,
+          "firstRegistrationDate": "2026-01-01",
+          "co2WltpGPerKm": 115,
+          "massInRunningOrderKg": 1200
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "MAY",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 40376,
+        "breakdown": { "Y1": 18000, "Y2": 0, "Y3": 21000, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "fr-used-no-malus",
+      "description": "Occasion FR achat à un particulier, 7 CV, 190 g (aucun malus rétroactif), 1800 kg",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "ESSENCE",
+          "fiscalHorsepower": 7,
+          "firstRegistrationDate": "2020-01-01",
+          "co2WltpGPerKm": 190,
+          "massInRunningOrderKg": 1800
+        },
+        "vehicleCase": "FR_USED",
+        "region": "CVL",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 43376,
+        "breakdown": { "Y1": 42000, "Y2": 0, "Y3": 0, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "fr-new-bre-hybrid-50pct",
+      "description": "Hybride HEV neuf en Bretagne (50 % sur Y1), 6 CV, 105 g, 1450 kg",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "HYBRID",
+          "fiscalHorsepower": 6,
+          "firstRegistrationDate": "2026-02-01",
+          "co2WltpGPerKm": 105,
+          "massInRunningOrderKg": 1450
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "BRE",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 19376,
+        "breakdown": { "Y1": 18000, "Y2": 0, "Y3": 0, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "fr-new-cor-hybrid-free",
+      "description": "PHEV neuf en Corse (exonération 100 %)",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "PHEV",
+          "fiscalHorsepower": 7,
+          "firstRegistrationDate": "2026-01-01",
+          "co2WltpGPerKm": 35,
+          "massInRunningOrderKg": 1750
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "COR",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 51376,
+        "breakdown": { "Y1": 0, "Y2": 0, "Y3": 0, "Y4": 1100, "Y5": 276, "Y6": 50000 }
+      }
+    },
+    {
+      "id": "fr-new-big-suv-2t-family",
+      "description": "SUV 7 CV 160 g 2000 kg famille 3 enfants → abattement 600 kg → 1400 kg taxable (seuil non atteint)",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "ESSENCE",
+          "fiscalHorsepower": 7,
+          "firstRegistrationDate": "2026-03-01",
+          "co2WltpGPerKm": 160,
+          "massInRunningOrderKg": 2000
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "HDF",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 3, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 907776,
+        "breakdown": { "Y1": 29400, "Y2": 0, "Y3": 877000, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "fr-new-tiny-city-car",
+      "description": "Citadine essence 4 CV 100 g (sous seuil CO2), 1000 kg, OCC",
+      "input": {
+        "vehicle": {
+          "genre": "VP",
+          "energy": "ESSENCE",
+          "fiscalHorsepower": 4,
+          "firstRegistrationDate": "2026-02-01",
+          "co2WltpGPerKm": 100,
+          "massInRunningOrderKg": 1000
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "OCC",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 25176,
+        "breakdown": { "Y1": 23800, "Y2": 0, "Y3": 0, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    },
+    {
+      "id": "fr-new-moto",
+      "description": "Moto genre MOTO (pas de Y3, pas de Y6)",
+      "input": {
+        "vehicle": {
+          "genre": "MOTO",
+          "energy": "ESSENCE",
+          "fiscalHorsepower": 4,
+          "firstRegistrationDate": "2026-03-01",
+          "co2WltpGPerKm": 90,
+          "massInRunningOrderKg": 200
+        },
+        "vehicleCase": "FR_NEW",
+        "region": "PAC",
+        "registrationDate": "2026-04-19",
+        "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
+      },
+      "expected": {
+        "totalCents": 25376,
+        "breakdown": { "Y1": 24000, "Y2": 0, "Y3": 0, "Y4": 1100, "Y5": 276, "Y6": 0 }
+      }
+    }
+  ]
+}

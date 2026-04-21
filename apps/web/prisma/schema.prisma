@@ -1,0 +1,107 @@
+// Immatout database schema.
+// Stores reference scales and ingested vehicle-identification data.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Reference scales (mirrored from packages/data JSON for query flexibility).
+// ---------------------------------------------------------------------------
+
+model RegionScale {
+  id                  Int      @id @default(autoincrement())
+  scaleYear           Int
+  regionCode          String   @db.VarChar(3)
+  regionName          String
+  perCvRateCents      Int // stored in cents to avoid float drift
+  energyCoefficients  Json // record<EnergyType, number>
+  idfmSurchargeCents  Int      @default(0) // only non-zero for IDF
+  publishedAt         DateTime
+  source              String
+
+  @@unique([scaleYear, regionCode])
+  @@index([scaleYear])
+}
+
+model Co2MalusScale {
+  id                     Int      @id @default(autoincrement())
+  scaleYear              Int      @unique
+  globalMalusCapCents    BigInt
+  grid                   Json // [{ co2GPerKm, amountCents }]
+  source                 String
+  importedAt             DateTime @default(now())
+}
+
+model WeightMalusScale {
+  id                     Int      @id @default(autoincrement())
+  scaleYear              Int      @unique
+  triggerKg              Int
+  tranches               Json
+  abatements             Json
+  evApplicable           Boolean
+  source                 String
+  importedAt             DateTime @default(now())
+}
+
+// ---------------------------------------------------------------------------
+// Vehicle reference data (populated by Python ingestion scripts from ADEME / EEA).
+// ---------------------------------------------------------------------------
+
+model VehicleModel {
+  id                     Int      @id @default(autoincrement())
+  cnit                   String?  @unique
+  make                   String
+  model                  String
+  variant                String?
+  year                   Int
+  energy                 String
+  fiscalHorsepower       Int
+  co2WltpGPerKm          Int?
+  massInRunningOrderKg   Int?
+  cylinderCapacityCm3    Int?
+  enginePowerKw          Int?
+  source                 String // "ADEME" | "EEA"
+  importedAt             DateTime @default(now())
+
+  @@index([make, model, year])
+}
+
+// ---------------------------------------------------------------------------
+// Cache for SIV provider lookups (F1 requirement: 30-day cache).
+// ---------------------------------------------------------------------------
+
+model SivLookupCache {
+  id             Int      @id @default(autoincrement())
+  plate          String   @unique
+  provider       String
+  payload        Json
+  fetchedAt      DateTime @default(now())
+  expiresAt      DateTime
+
+  @@index([expiresAt])
+}
+
+// ---------------------------------------------------------------------------
+// Calculation audit trail (for reproducibility & stats).
+// ---------------------------------------------------------------------------
+
+model CalculationLog {
+  id               String   @id @default(cuid())
+  engineVersion    String
+  scaleVersion     String
+  vehicleCase      String
+  regionCode       String
+  input            Json
+  output           Json
+  totalCents       Int
+  createdAt        DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([regionCode, vehicleCase])
+}

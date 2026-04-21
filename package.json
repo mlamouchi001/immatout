@@ -1,0 +1,36 @@
+{
+  "name": "immatout",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Calcul officiel du coût de la carte grise en France (Loi de Finances 2026)",
+  "packageManager": "pnpm@10.26.2",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @immatout/web dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "test:coverage": "pnpm --filter @immatout/calc test:coverage",
+    "typecheck": "pnpm -r typecheck",
+    "db:seed": "pnpm --filter @immatout/web db:seed",
+    "db:migrate": "pnpm --filter @immatout/web db:migrate",
+    "prepare": "husky || true"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  }
+}

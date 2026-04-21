@@ -1,0 +1,135 @@
+{
+  "scaleYear": 2026,
+  "publishedAt": "2026-01-01",
+  "source": "Arrêtés des conseils régionaux 2026 + service-public.gouv.fr (plafond légal 60€/CV CIBS L.421-48)",
+  "idfmSurchargeEurosPerCv": 14,
+  "idfmSurchargeStartsAt": "2026-03-01",
+  "regions": [
+    {
+      "regionCode": "ARA",
+      "regionName": "Auvergne-Rhône-Alpes",
+      "perCvRateEuros": 43,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "BFC",
+      "regionName": "Bourgogne-Franche-Comté",
+      "perCvRateEuros": 60,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "BRE",
+      "regionName": "Bretagne",
+      "perCvRateEuros": 60,
+      "energyCoefficients": {
+        "ELECTRIC": 0,
+        "HYDROGEN": 0,
+        "HYBRID": 0.5,
+        "PHEV": 0.5,
+        "GPL": 0.5,
+        "GNV": 0.5,
+        "E85": 0.5
+      }
+    },
+    {
+      "regionCode": "CVL",
+      "regionName": "Centre-Val de Loire",
+      "perCvRateEuros": 60,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "COR",
+      "regionName": "Corse",
+      "perCvRateEuros": 53,
+      "energyCoefficients": {
+        "ELECTRIC": 0,
+        "HYDROGEN": 0,
+        "HYBRID": 0,
+        "PHEV": 0
+      }
+    },
+    {
+      "regionCode": "GES",
+      "regionName": "Grand Est",
+      "perCvRateEuros": 60,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "HDF",
+      "regionName": "Hauts-de-France",
+      "perCvRateEuros": 42,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "IDF",
+      "regionName": "Île-de-France",
+      "perCvRateEuros": 54.95,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "NOR",
+      "regionName": "Normandie",
+      "perCvRateEuros": 60,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "NAQ",
+      "regionName": "Nouvelle-Aquitaine",
+      "perCvRateEuros": 58,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "OCC",
+      "regionName": "Occitanie",
+      "perCvRateEuros": 59.5,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "PDL",
+      "regionName": "Pays de la Loire",
+      "perCvRateEuros": 51,
+      "energyCoefficients": {
+        "ELECTRIC": 0,
+        "HYDROGEN": 0,
+        "HYBRID": 0,
+        "PHEV": 0
+      }
+    },
+    {
+      "regionCode": "PAC",
+      "regionName": "Provence-Alpes-Côte d'Azur",
+      "perCvRateEuros": 60,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "GUA",
+      "regionName": "Guadeloupe",
+      "perCvRateEuros": 41,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "GUF",
+      "regionName": "Guyane",
+      "perCvRateEuros": 42.5,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "MAR",
+      "regionName": "Martinique",
+      "perCvRateEuros": 53,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "MAY",
+      "regionName": "Mayotte",
+      "perCvRateEuros": 30,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    },
+    {
+      "regionCode": "REU",
+      "regionName": "La Réunion",
+      "perCvRateEuros": 60,
+      "energyCoefficients": { "ELECTRIC": 0, "HYDROGEN": 0 }
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "FR_NEW": [
+    { "id": "id-card", "label": "Pièce d'identité en cours de validité du titulaire" },
+    { "id": "proof-residence", "label": "Justificatif de domicile de moins de 6 mois" },
+    {
+      "id": "cerfa-13750",
+      "label": "Formulaire Cerfa n°13750 (demande de certificat d'immatriculation)"
+    },
+    { "id": "invoice", "label": "Facture d'achat du véhicule neuf" },
+    { "id": "coc", "label": "Certificat de conformité européen (COC) fourni par le constructeur" },
+    { "id": "mandate", "label": "Mandat Cerfa n°13757 si démarche via un tiers" }
+  ],
+  "FR_USED": [
+    { "id": "id-card", "label": "Pièce d'identité en cours de validité du titulaire" },
+    { "id": "proof-residence", "label": "Justificatif de domicile de moins de 6 mois" },
+    { "id": "cerfa-13750", "label": "Formulaire Cerfa n°13750" },
+    { "id": "cerfa-15776", "label": "Formulaire Cerfa n°15776 de cession (exemplaire acquéreur)" },
+    {
+      "id": "old-carte-grise",
+      "label": "Ancienne carte grise barrée avec mention « Vendu le … » signée par le vendeur"
+    },
+    {
+      "id": "ct",
+      "label": "Procès-verbal de contrôle technique de moins de 6 mois (véhicule > 4 ans, hors exemptions)"
+    },
+    {
+      "id": "nogage-cert",
+      "label": "Certificat de situation administrative (non-gage) de moins de 15 jours"
+    }
+  ],
+  "IMPORT_EU_NEW": [
+    { "id": "id-card", "label": "Pièce d'identité en cours de validité du titulaire" },
+    { "id": "proof-residence", "label": "Justificatif de domicile de moins de 6 mois" },
+    { "id": "cerfa-13750", "label": "Formulaire Cerfa n°13750" },
+    {
+      "id": "invoice",
+      "label": "Facture d'achat originale (avec TVA du pays d'origine ou TVA française)"
+    },
+    { "id": "coc", "label": "Certificat de conformité européen (COC) fourni par le constructeur" },
+    { "id": "quitus", "label": "Quitus fiscal délivré par le service des impôts français (SIE)" }
+  ],
+  "IMPORT_EU_USED": [
+    { "id": "id-card", "label": "Pièce d'identité en cours de validité du titulaire" },
+    { "id": "proof-residence", "label": "Justificatif de domicile de moins de 6 mois" },
+    { "id": "cerfa-13750", "label": "Formulaire Cerfa n°13750" },
+    {
+      "id": "foreign-reg",
+      "label": "Carte grise étrangère originale (traduction assermentée si pas en caractères latins)"
+    },
+    { "id": "invoice", "label": "Facture ou contrat de vente" },
+    {
+      "id": "coc",
+      "label": "Certificat de conformité européen (COC) — à défaut, réception à titre isolé (RTI) par la DREAL"
+    },
+    { "id": "quitus", "label": "Quitus fiscal délivré par le service des impôts français (SIE)" },
+    {
+      "id": "ct",
+      "label": "Procès-verbal de contrôle technique français < 6 mois (véhicule > 4 ans)"
+    }
+  ],
+  "IMPORT_NON_EU_NEW": [
+    { "id": "id-card", "label": "Pièce d'identité en cours de validité du titulaire" },
+    { "id": "proof-residence", "label": "Justificatif de domicile de moins de 6 mois" },
+    { "id": "cerfa-13750", "label": "Formulaire Cerfa n°13750" },
+    { "id": "invoice", "label": "Facture d'achat originale" },
+    {
+      "id": "coc",
+      "label": "Certificat de conformité européen (COC) — à défaut, réception à titre isolé (RTI) par la DREAL"
+    },
+    { "id": "846a", "label": "Certificat de dédouanement 846A des douanes françaises" }
+  ],
+  "IMPORT_NON_EU_USED": [
+    { "id": "id-card", "label": "Pièce d'identité en cours de validité du titulaire" },
+    { "id": "proof-residence", "label": "Justificatif de domicile de moins de 6 mois" },
+    { "id": "cerfa-13750", "label": "Formulaire Cerfa n°13750" },
+    {
+      "id": "foreign-reg",
+      "label": "Carte grise étrangère originale (traduction assermentée si pas en caractères latins)"
+    },
+    { "id": "invoice", "label": "Facture ou contrat de vente" },
+    {
+      "id": "coc",
+      "label": "Certificat de conformité européen (COC) — à défaut, réception à titre isolé (RTI) par la DREAL"
+    },
+    { "id": "846a", "label": "Certificat de dédouanement 846A des douanes françaises" },
+    {
+      "id": "ct",
+      "label": "Procès-verbal de contrôle technique français < 6 mois (véhicule > 4 ans)"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PNPM_VERSION: 10.26.2
+  NODE_VERSION: 20
+
+jobs:
+  lint-and-test:
+    name: Lint · Typecheck · Test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: immatout
+          POSTGRES_PASSWORD: immatout
+          POSTGRES_DB: immatout
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U immatout"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://immatout:immatout@localhost:5432/immatout?schema=public
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm --filter @immatout/web exec prisma generate
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test (calc engine)
+        run: pnpm --filter @immatout/calc test
+
+      - name: Build
+        run: pnpm build

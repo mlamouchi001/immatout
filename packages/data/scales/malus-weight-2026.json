@@ -1,0 +1,21 @@
+{
+  "scaleYear": 2026,
+  "source": "CIBS L.421-71 à L.421-81-1 + Loi de Finances 2026 (seuil abaissé 1600 → 1500 kg, EV exonérés 2026-2028 suite au retrait de l'amendement via 49-3)",
+  "triggerKg": 1500,
+  "tranches": [
+    { "fromKg": 1500, "toKg": 1700, "ratePerKgEuros": 10 },
+    { "fromKg": 1700, "toKg": 1800, "ratePerKgEuros": 15 },
+    { "fromKg": 1800, "toKg": 1900, "ratePerKgEuros": 20 },
+    { "fromKg": 1900, "toKg": 2000, "ratePerKgEuros": 25 },
+    { "fromKg": 2000, "toKg": null, "ratePerKgEuros": 30 }
+  ],
+  "abatements": {
+    "hybridKg": 100,
+    "phevKg": 200,
+    "eightSeatsIndividualKg": 500,
+    "eightSeatsLegalEntityKg": 600,
+    "perChildKg": 200,
+    "familyMinChildren": 3
+  },
+  "evApplicable": false
+}

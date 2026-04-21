@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: immatout-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: immatout
+      POSTGRES_PASSWORD: immatout
+      POSTGRES_DB: immatout
+    ports:
+      - '5434:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U immatout -d immatout']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: immatout-web
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://immatout:immatout@postgres:5432/immatout?schema=public
+      SIV_API_PROVIDER: mock
+      NODE_ENV: production
+    ports:
+      - '3005:3000'
+
+volumes:
+  postgres_data:

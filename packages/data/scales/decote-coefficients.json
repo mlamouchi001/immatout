@@ -1,0 +1,26 @@
+{
+  "source": "service-public.gouv.fr/particuliers/vosdroits/F35950 + CIBS (barème unifié Y3/Y6 pour véhicules d'occasion importés ou requalifiés depuis 2025-03-01)",
+  "fullExonerationAtMonths": 181,
+  "tiers": [
+    { "fromMonths": 1, "toMonths": 4, "coefficient": 0.03 },
+    { "fromMonths": 4, "toMonths": 7, "coefficient": 0.06 },
+    { "fromMonths": 7, "toMonths": 10, "coefficient": 0.09 },
+    { "fromMonths": 10, "toMonths": 13, "coefficient": 0.12 },
+    { "fromMonths": 13, "toMonths": 19, "coefficient": 0.16 },
+    { "fromMonths": 19, "toMonths": 25, "coefficient": 0.2 },
+    { "fromMonths": 25, "toMonths": 37, "coefficient": 0.28 },
+    { "fromMonths": 37, "toMonths": 49, "coefficient": 0.33 },
+    { "fromMonths": 49, "toMonths": 61, "coefficient": 0.38 },
+    { "fromMonths": 61, "toMonths": 73, "coefficient": 0.43 },
+    { "fromMonths": 73, "toMonths": 85, "coefficient": 0.48 },
+    { "fromMonths": 85, "toMonths": 97, "coefficient": 0.53 },
+    { "fromMonths": 97, "toMonths": 109, "coefficient": 0.58 },
+    { "fromMonths": 109, "toMonths": 121, "coefficient": 0.64 },
+    { "fromMonths": 121, "toMonths": 133, "coefficient": 0.7 },
+    { "fromMonths": 133, "toMonths": 145, "coefficient": 0.76 },
+    { "fromMonths": 145, "toMonths": 157, "coefficient": 0.82 },
+    { "fromMonths": 157, "toMonths": 169, "coefficient": 0.88 },
+    { "fromMonths": 169, "toMonths": 181, "coefficient": 0.94 },
+    { "fromMonths": 181, "toMonths": null, "coefficient": 1.0 }
+  ]
+}

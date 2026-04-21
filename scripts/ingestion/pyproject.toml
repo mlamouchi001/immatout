@@ -1,0 +1,21 @@
+[project]
+name = "immatout-ingestion"
+version = "0.1.0"
+description = "Data ingestion scripts for Immatout (ADEME, EEA, regional scales)."
+requires-python = ">=3.11"
+dependencies = [
+  "pandas>=2.2.0",
+  "requests>=2.32.0",
+  "pydantic>=2.10.0",
+  "python-dotenv>=1.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "ruff>=0.8.0",
+  "pytest>=8.3.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
