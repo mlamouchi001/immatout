@@ -8,6 +8,9 @@ import { normalizePlate } from '@/lib/siv/plate';
 import { SivNotFoundError, SivUnavailableError } from '@/lib/siv/types';
 import type { SivLookupResult } from '@/lib/siv/types';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/vehicle/[plate]
  *

@@ -4,6 +4,9 @@ import { getRequiredDocuments } from '@immatout/data';
 
 import { VehicleCaseSchema } from '@immatout/calc';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/documents?case=FR_NEW
  *

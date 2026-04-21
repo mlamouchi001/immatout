@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 
 import { getRegionsScale, SUPPORTED_SCALE_YEARS } from '@immatout/data';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/regions?year=2026 (default: latest supported)
  *

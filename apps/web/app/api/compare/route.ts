@@ -6,6 +6,9 @@ import { getRegionsScale } from '@immatout/data';
 
 import { fromZod } from '@/lib/api/errors';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 /**
  * POST /api/compare
  *

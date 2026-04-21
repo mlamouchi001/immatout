@@ -7,6 +7,9 @@ import { CalculationContextSchema, calculate } from '@immatout/calc';
 import { fromZod, serverError } from '@/lib/api/errors';
 import { prisma } from '@/lib/prisma';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 /**
  * POST /api/calculate
  *
