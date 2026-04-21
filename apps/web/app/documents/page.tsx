@@ -6,6 +6,8 @@ import { getRequiredDocuments } from '@immatout/data';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Documents à fournir',
   description:
