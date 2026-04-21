@@ -13,6 +13,7 @@ COPY pnpm-workspace.yaml pnpm-lock.yaml* package.json ./
 COPY apps/web/package.json ./apps/web/
 COPY packages/calc/package.json ./packages/calc/
 COPY packages/data/package.json ./packages/data/
+COPY packages/vehicle-catalog/package.json ./packages/vehicle-catalog/
 RUN pnpm install --frozen-lockfile || pnpm install
 
 # ---------- build ----------
@@ -23,6 +24,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
 COPY --from=deps /app/packages/calc/node_modules ./packages/calc/node_modules
 COPY --from=deps /app/packages/data/node_modules ./packages/data/node_modules
+COPY --from=deps /app/packages/vehicle-catalog/node_modules ./packages/vehicle-catalog/node_modules
 COPY . .
 RUN mkdir -p ./apps/web/public
 RUN pnpm --filter @immatout/web exec prisma generate

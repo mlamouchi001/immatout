@@ -32,6 +32,9 @@ importers:
       '@immatout/data':
         specifier: workspace:*
         version: link:../../packages/data
+      '@immatout/vehicle-catalog':
+        specifier: workspace:*
+        version: link:../../packages/vehicle-catalog
       '@prisma/client':
         specifier: ^6.1.0
         version: 6.19.3(prisma@6.19.3(magicast@0.3.5)(typescript@5.9.3))(typescript@5.9.3)
@@ -170,6 +173,22 @@ importers:
       eslint:
         specifier: ^9.17.0
         version: 9.39.4(jiti@2.6.1)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+
+  packages/vehicle-catalog:
+    dependencies:
+      zod:
+        specifier: ^3.24.1
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^22.10.0
+        version: 22.19.17
+      tsx:
+        specifier: ^4.19.2
+        version: 4.21.0
       typescript:
         specifier: ^5.7.2
         version: 5.9.3

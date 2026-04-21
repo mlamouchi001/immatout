@@ -7,6 +7,7 @@ import type { RegionScaleEntry } from '@immatout/data';
 
 import { CasePicker, toVehicleCase } from './case-picker';
 import { ManualForm, type ManualFormValue } from './manual-form';
+import { ModelForm, type ModelLookupResult } from './model-form';
 import { PlateForm, type PlateLookupResult } from './plate-form';
 import { ResultView } from './result-view';
 import { Stepper } from './stepper';
@@ -16,9 +17,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { t } from '@/lib/i18n';
 import { useCalculate } from '@/lib/use-calculate';
 
-type Mode = 'plate' | 'manual';
+type Mode = 'plate' | 'model' | 'manual';
 type Origin = 'FR' | 'EU' | 'NON_EU';
 type State = 'NEW' | 'USED';
+
+/**
+ * Controls which search modes are visible in the vehicle-entry card.
+ * `SEARCH_MODE=plate` re-enables the SIV-backed plate lookup; any other
+ * value (default) uses the ADEME catalog model picker.
+ */
+const PLATE_ENABLED = (process.env.NEXT_PUBLIC_SEARCH_MODE ?? 'model').toLowerCase() === 'plate';
 
 export function CalculatorApp() {
   const [origin, setOrigin] = useState<Origin>('FR');
@@ -27,7 +35,7 @@ export function CalculatorApp() {
   const [regions, setRegions] = useState<RegionScaleEntry[]>([]);
   const [regionsError, setRegionsError] = useState<string | null>(null);
 
-  const [mode, setMode] = useState<Mode>('plate');
+  const [mode, setMode] = useState<Mode>(PLATE_ENABLED ? 'plate' : 'model');
   const [prefill, setPrefill] = useState<Partial<VehicleInput>>();
   const [result, run, reset] = useCalculate();
 
@@ -57,6 +65,11 @@ export function CalculatorApp() {
       make: v.make,
       model: v.model,
     });
+    setMode('manual');
+  }
+
+  function handleModelFound(v: ModelLookupResult) {
+    setPrefill({ ...v.prefill, make: v.make, model: v.model });
     setMode('manual');
   }
 
@@ -110,11 +123,17 @@ export function CalculatorApp() {
         <CardContent className="p-6">
           <Tabs value={mode} onValueChange={(v) => setMode(v as Mode)}>
             <TabsList>
-              <TabsTrigger value="plate">{t('form.mode.plate')}</TabsTrigger>
+              {PLATE_ENABLED && <TabsTrigger value="plate">{t('form.mode.plate')}</TabsTrigger>}
+              <TabsTrigger value="model">{t('form.mode.model')}</TabsTrigger>
               <TabsTrigger value="manual">{t('form.mode.manual')}</TabsTrigger>
             </TabsList>
-            <TabsContent value="plate">
-              <PlateForm onFound={handlePlateFound} onFallback={() => setMode('manual')} />
+            {PLATE_ENABLED && (
+              <TabsContent value="plate">
+                <PlateForm onFound={handlePlateFound} onFallback={() => setMode('manual')} />
+              </TabsContent>
+            )}
+            <TabsContent value="model">
+              <ModelForm onFound={handleModelFound} onFallback={() => setMode('manual')} />
             </TabsContent>
             <TabsContent value="manual">
               <ManualForm
