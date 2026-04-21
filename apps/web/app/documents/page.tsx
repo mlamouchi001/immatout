@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import { FileText } from 'lucide-react';
 
 import type { VehicleCase } from '@immatout/calc';
-import { getRequiredDocuments } from '@immatout/data';
+import { getRequiredDocuments, type RequiredDocumentsFile } from '@immatout/data';
+
+type RequiredDocument = NonNullable<RequiredDocumentsFile[string]>[number];
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -49,7 +51,7 @@ export default function DocumentsPage() {
             </CardHeader>
             <CardContent>
               <ul className="space-y-2 text-sm">
-                {docs[key]?.map((d) => (
+                {docs[key]?.map((d: RequiredDocument) => (
                   <li key={d.id} className="flex gap-2">
                     <span
                       aria-hidden
