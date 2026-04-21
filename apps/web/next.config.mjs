@@ -2,9 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@immatout/calc', '@immatout/data'],
-  experimental: {
-    typedRoutes: true,
-  },
+  output: 'standalone',
 };
 
 export default nextConfig;
