@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 
 import { calculate, CalculationContextSchema, type RegionCode } from '@immatout/calc';
-import { getRegionsScale } from '@immatout/data';
+import { getRegionsScale, type RegionScaleEntry } from '@immatout/data';
 
 import { fromZod } from '@/lib/api/errors';
 
@@ -37,7 +37,7 @@ export async function POST(request: Request): Promise<Response> {
   const year = new Date(ctx.registrationDate).getUTCFullYear();
   const scale = getRegionsScale(year);
 
-  const comparisons = scale.regions.map((r) => {
+  const comparisons = scale.regions.map((r: RegionScaleEntry) => {
     const code = r.regionCode as RegionCode;
     const breakdown = calculate({ ...ctx, region: code });
     return {
