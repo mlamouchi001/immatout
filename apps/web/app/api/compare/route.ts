@@ -37,22 +37,32 @@ export async function POST(request: Request): Promise<Response> {
   const year = new Date(ctx.registrationDate).getUTCFullYear();
   const scale = getRegionsScale(year);
 
-  const comparisons = scale.regions.map((r: RegionScaleEntry) => {
-    const code = r.regionCode as RegionCode;
-    const breakdown = calculate({ ...ctx, region: code });
-    return {
-      regionCode: code,
-      regionName: r.regionName,
-      perCvRateEuros: r.perCvRateEuros,
-      totalCents: breakdown.totalCents,
-      taxes: {
-        Y1: breakdown.taxes.Y1_regionale.amountCents,
-        Y3: breakdown.taxes.Y3_malusCO2.amountCents,
-        Y6: breakdown.taxes.Y6_malusPoids.amountCents,
-      },
-    };
-  });
+  type RegionComparison = {
+    regionCode: RegionCode;
+    regionName: string;
+    perCvRateEuros: number;
+    totalCents: number;
+    taxes: { Y1: number; Y3: number; Y6: number };
+  };
 
-  comparisons.sort((a, b) => a.totalCents - b.totalCents);
+  const comparisons: RegionComparison[] = scale.regions.map(
+    (r: RegionScaleEntry): RegionComparison => {
+      const code = r.regionCode as RegionCode;
+      const breakdown = calculate({ ...ctx, region: code });
+      return {
+        regionCode: code,
+        regionName: r.regionName,
+        perCvRateEuros: r.perCvRateEuros,
+        totalCents: breakdown.totalCents,
+        taxes: {
+          Y1: breakdown.taxes.Y1_regionale.amountCents,
+          Y3: breakdown.taxes.Y3_malusCO2.amountCents,
+          Y6: breakdown.taxes.Y6_malusPoids.amountCents,
+        },
+      };
+    },
+  );
+
+  comparisons.sort((a: RegionComparison, b: RegionComparison) => a.totalCents - b.totalCents);
   return NextResponse.json({ comparisons });
 }
