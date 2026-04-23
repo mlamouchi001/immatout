@@ -1,11 +1,11 @@
 'use client';
 
-import { Car, Loader2 } from 'lucide-react';
+import { Car, Info, Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import type { EnergyType, VehicleInput } from '@immatout/calc';
-import type { EnergyCode, Trim } from '@immatout/vehicle-catalog';
 
+import type { CatalogTrimDto } from '@/app/api/catalog/trims/route';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -21,7 +21,7 @@ import { t } from '@/lib/i18n';
 export interface ModelLookupResult {
   make: string;
   model: string;
-  trim: Trim;
+  trim: CatalogTrimDto;
   prefill: Partial<VehicleInput>;
 }
 
@@ -31,11 +31,11 @@ interface Props {
 }
 
 /**
- * ADEME "Energie" codes map to the calc package's EnergyType. Everything that
+ * ADEME / EEA energy codes map to the calc package's EnergyType. Anything that
  * cannot be mapped precisely falls back to 'OTHER' so the user can refine
  * manually in the next step.
  */
-function mapEnergy(code: EnergyCode): EnergyType {
+function mapEnergy(code: string): EnergyType {
   switch (code) {
     case 'ES':
       return 'ESSENCE';
@@ -63,7 +63,7 @@ export function ModelForm({ onFound, onFallback }: Props) {
   const [make, setMake] = useState<string>('');
   const [models, setModels] = useState<string[]>([]);
   const [model, setModel] = useState<string>('');
-  const [trims, setTrims] = useState<Trim[]>([]);
+  const [trims, setTrims] = useState<CatalogTrimDto[]>([]);
   const [trimId, setTrimId] = useState<string>('');
   const [loadingMakes, setLoadingMakes] = useState(false);
   const [loadingModels, setLoadingModels] = useState(false);
@@ -121,7 +121,7 @@ export function ModelForm({ onFound, onFallback }: Props) {
     setLoadingTrims(true);
     fetch(`/api/catalog/trims?make=${encodeURIComponent(make)}&model=${encodeURIComponent(model)}`)
       .then((r) => r.json())
-      .then((data: { trims: Trim[] }) => {
+      .then((data: { trims: CatalogTrimDto[] }) => {
         if (active) {
           setTrims(data.trims);
           setTrimId(data.trims[0]?.id ?? '');
@@ -134,18 +134,20 @@ export function ModelForm({ onFound, onFallback }: Props) {
     };
   }, [make, model]);
 
+  const selectedTrim = trims.find((tr: CatalogTrimDto) => tr.id === trimId);
+  const showApproxWarn = selectedTrim?.fiscalCvApprox ?? false;
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const trim = trims.find((tr: Trim) => tr.id === trimId);
-    if (!trim) return;
+    if (!selectedTrim) return;
     const prefill: Partial<VehicleInput> = {
       genre: 'VP',
-      energy: mapEnergy(trim.energy),
-      fiscalHorsepower: trim.fiscalCv,
+      energy: mapEnergy(selectedTrim.energy),
+      fiscalHorsepower: selectedTrim.fiscalCv,
     };
-    if (trim.co2GPerKm !== null) prefill.co2WltpGPerKm = trim.co2GPerKm;
-    if (trim.weightKg !== null) prefill.massInRunningOrderKg = trim.weightKg;
-    onFound({ make, model, trim, prefill });
+    if (selectedTrim.co2GPerKm !== null) prefill.co2WltpGPerKm = selectedTrim.co2GPerKm;
+    if (selectedTrim.weightKg !== null) prefill.massInRunningOrderKg = selectedTrim.weightKg;
+    onFound({ make, model, trim: selectedTrim, prefill });
   }
 
   const noDataForMake = make && !loadingModels && models.length === 0;
@@ -202,9 +204,10 @@ export function ModelForm({ onFound, onFallback }: Props) {
               />
             </SelectTrigger>
             <SelectContent>
-              {trims.map((tr: Trim) => (
+              {trims.map((tr: CatalogTrimDto) => (
                 <SelectItem key={tr.id} value={tr.id}>
                   {tr.label} — {tr.fiscalCv} CV
+                  {tr.fiscalCvApprox ? '~' : ''}
                   {tr.co2GPerKm !== null ? ` · ${tr.co2GPerKm} g/km` : ''}
                 </SelectItem>
               ))}
@@ -212,6 +215,16 @@ export function ModelForm({ onFound, onFallback }: Props) {
           </Select>
         </div>
       </div>
+
+      {showApproxWarn && (
+        <Alert variant="info">
+          <Info className="h-4 w-4" />
+          <AlertDescription>
+            Puissance fiscale estimée (source EEA sans CV administratif). Vérifiez la valeur exacte
+            sur votre certificat d&apos;immatriculation avant de finaliser.
+          </AlertDescription>
+        </Alert>
+      )}
 
       {noDataForMake && (
         <Alert variant="warn">

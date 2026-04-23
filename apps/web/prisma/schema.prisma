@@ -50,7 +50,8 @@ model WeightMalusScale {
 }
 
 // ---------------------------------------------------------------------------
-// Vehicle reference data (populated by Python ingestion scripts from ADEME / EEA).
+// Legacy flat vehicle reference (kept for back-compat; superseded by
+// CatalogMake / CatalogModel / CatalogTrim below).
 // ---------------------------------------------------------------------------
 
 model VehicleModel {
@@ -70,6 +71,69 @@ model VehicleModel {
   importedAt             DateTime @default(now())
 
   @@index([make, model, year])
+}
+
+// ---------------------------------------------------------------------------
+// Vehicle catalog (ADEME + EEA merged, queried by the model-picker UI).
+// ---------------------------------------------------------------------------
+
+model CatalogMake {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  slug      String   @unique
+  sources   String[] // ["ademe","eea","vpic"]
+  models    CatalogModel[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([name])
+}
+
+model CatalogModel {
+  id         Int           @id @default(autoincrement())
+  makeId     Int
+  make       CatalogMake   @relation(fields: [makeId], references: [id], onDelete: Cascade)
+  name       String
+  slug       String
+  trims      CatalogTrim[]
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@unique([makeId, name])
+  @@index([name])
+}
+
+model CatalogTrim {
+  id              Int          @id @default(autoincrement())
+  modelId         Int
+  model           CatalogModel @relation(fields: [modelId], references: [id], onDelete: Cascade)
+  naturalKey      String       @unique // make-model-variant-energy-power+displacement hash
+  label           String
+  energy          String       // EnergyCode: ES, GO, EE, EH, GH, GL, GN, H2, OTHER
+  fiscalCv        Int
+  fiscalCvApprox  Boolean      @default(false) // true when derived from CO2+kW formula
+  co2GPerKm       Int?
+  weightKg        Int?
+  powerKw         Float?
+  displacementCc  Int?
+  bodyType        String?
+  marketYear      Int?         // year of data snapshot (ADEME latest, EEA 2023, etc.)
+  source          String       // "ademe" | "eea"
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  @@index([modelId])
+  @@index([energy, fiscalCv])
+  @@index([marketYear])
+}
+
+model CatalogSeedState {
+  id             Int      @id @default(autoincrement())
+  source         String   @unique // "ademe" | "eea"
+  lastSeededAt   DateTime
+  rowCount       Int
+  durationMs     Int
+  version        String   // e.g. "2026-03-15" ADEME snapshot, "2023Fv28" EEA
 }
 
 // ---------------------------------------------------------------------------
