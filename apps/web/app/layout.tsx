@@ -1,10 +1,18 @@
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
 import './globals.css';
 
 import { PlausibleAnalytics } from '@/components/plausible-analytics';
+import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { TooltipProvider } from '@/components/ui/tooltip';
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sans',
+});
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
 
@@ -48,20 +56,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="fr" suppressHydrationWarning>
-      <body className="min-h-screen antialiased">
+    <html lang="fr" className={inter.variable} suppressHydrationWarning>
+      <body className="min-h-screen bg-background font-sans antialiased">
         <TooltipProvider delayDuration={200}>
-          <SiteHeader />
-          {children}
-          <footer className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-10 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-            <span>
-              Sources : Légifrance (CIBS L.421-29 à L.421-92), service-public.gouv.fr, ADEME, EEA.
-              Loi de Finances 2026. Calcul indicatif, non opposable.
-            </span>
-            <a href="/mentions-legales" className="hover:text-foreground">
-              Mentions légales
-            </a>
-          </footer>
+          <div className="relative flex min-h-screen flex-col">
+            <SiteHeader />
+            <main className="flex-1">{children}</main>
+            <SiteFooter />
+          </div>
         </TooltipProvider>
         <PlausibleAnalytics />
       </body>

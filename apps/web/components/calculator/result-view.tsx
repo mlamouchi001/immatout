@@ -1,14 +1,14 @@
 'use client';
 
-import { Info, FileDown, RefreshCcw } from 'lucide-react';
+import { Info, FileDown, RefreshCcw, ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
-import { Cell, Pie, PieChart } from 'recharts';
+import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
 
 import type { CalculationContext, RegistrationCostBreakdown } from '@immatout/calc';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { formatCentsPrecise, formatCentsWhole } from '@/lib/format';
@@ -24,12 +24,12 @@ type TaxRow = {
 };
 
 const COLORS: Record<TaxRow['code'], string> = {
-  Y1: '#3b82f6',
-  Y2: '#a855f7',
-  Y3: '#ef4444',
-  Y4: '#10b981',
-  Y5: '#f59e0b',
-  Y6: '#f97316',
+  Y1: '#2563eb', // blue-600
+  Y2: '#7c3aed', // violet-600
+  Y3: '#dc2626', // red-600
+  Y4: '#059669', // emerald-600
+  Y5: '#d97706', // amber-600
+  Y6: '#ea580c', // orange-600
 };
 
 interface Props {
@@ -52,8 +52,8 @@ export function ResultView({ result, input, onReset }: Props) {
   ];
 
   const chartData = rows
-    .filter((r) => r.amountCents > 0)
-    .map((r) => ({ name: r.label, value: r.amountCents, fill: r.color }));
+    .filter((r: TaxRow) => r.amountCents > 0)
+    .map((r: TaxRow) => ({ name: r.label, value: r.amountCents, fill: r.color }));
 
   async function downloadPdf() {
     setDownloading(true);
@@ -79,54 +79,83 @@ export function ResultView({ result, input, onReset }: Props) {
   }
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardDescription>{t('result.total')}</CardDescription>
-          <CardTitle className="text-4xl font-bold">
-            {formatCentsPrecise(result.totalCents)}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-[260px_1fr]">
-          <div className="flex items-center justify-center">
+    <div className="animate-fade-in space-y-6">
+      <Card className="overflow-hidden">
+        <div className="grid gap-0 md:grid-cols-[minmax(0,1fr)_320px]">
+          <div className="border-b border-border p-8 md:border-b-0 md:border-r">
+            <p className="section-eyebrow">{t('result.total')}</p>
+            <p className="num mt-3 text-5xl font-bold tracking-tight sm:text-6xl">
+              {formatCentsPrecise(result.totalCents)}
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Dont {rows.filter((r) => r.amountCents > 0).length} taxes applicables · barème{' '}
+              {result.metadata.scaleVersion}
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              <Button onClick={downloadPdf} disabled={downloading} variant="accent">
+                <FileDown className="h-4 w-4" />
+                {downloading ? 'Génération…' : t('result.download_pdf')}
+              </Button>
+              <Button variant="outline" onClick={onReset}>
+                <RefreshCcw className="h-4 w-4" />
+                Nouveau calcul
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center bg-muted/20 p-8">
             {chartData.length > 0 ? (
-              <PieChart width={240} height={240}>
-                <Pie
-                  data={chartData}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={70}
-                  outerRadius={110}
-                  paddingAngle={2}
-                  stroke="#fff"
-                  strokeWidth={2}
-                  isAnimationActive={false}
-                >
-                  {chartData.map((entry, i) => (
-                    <Cell key={i} fill={entry.fill} />
-                  ))}
-                </Pie>
-              </PieChart>
+              <div className="relative h-48 w-48">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={chartData}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={62}
+                      outerRadius={92}
+                      paddingAngle={2}
+                      stroke="hsl(var(--card))"
+                      strokeWidth={2}
+                      isAnimationActive={false}
+                    >
+                      {chartData.map((entry, i) => (
+                        <Cell key={i} fill={entry.fill} />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </ResponsiveContainer>
+                <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+                    Répartition
+                  </p>
+                  <p className="num mt-0.5 text-xs text-muted-foreground">
+                    {chartData.length} postes
+                  </p>
+                </div>
+              </div>
             ) : (
               <p className="text-sm text-muted-foreground">Aucune taxe à afficher.</p>
             )}
           </div>
-          <div>
-            <Tabs value={view} onValueChange={(v) => setView(v as 'summary' | 'expert')}>
-              <TabsList>
-                <TabsTrigger value="summary">{t('result.view.summary')}</TabsTrigger>
-                <TabsTrigger value="expert">{t('result.view.expert')}</TabsTrigger>
-              </TabsList>
-              <TabsContent value="summary">
-                <TaxTable rows={rows} expert={false} />
-              </TabsContent>
-              <TabsContent value="expert">
-                <TaxTable rows={rows} expert />
-              </TabsContent>
-            </Tabs>
-          </div>
+        </div>
+
+        <CardContent className="border-t border-border pt-6">
+          <Tabs value={view} onValueChange={(v) => setView(v as 'summary' | 'expert')}>
+            <TabsList>
+              <TabsTrigger value="summary">{t('result.view.summary')}</TabsTrigger>
+              <TabsTrigger value="expert">{t('result.view.expert')}</TabsTrigger>
+            </TabsList>
+            <TabsContent value="summary">
+              <TaxTable rows={rows} expert={false} />
+            </TabsContent>
+            <TabsContent value="expert">
+              <TaxTable rows={rows} expert />
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
 
@@ -149,62 +178,86 @@ export function ResultView({ result, input, onReset }: Props) {
         </Alert>
       )}
 
-      <div className="flex flex-wrap gap-3">
-        <Button onClick={downloadPdf} disabled={downloading}>
-          <FileDown className="h-4 w-4" />
-          {downloading ? 'Génération…' : t('result.download_pdf')}
-        </Button>
-        <Button variant="outline" onClick={onReset}>
-          <RefreshCcw className="h-4 w-4" />
-          Nouveau calcul
-        </Button>
-      </div>
+      <button
+        type="button"
+        onClick={onReset}
+        className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
+      >
+        <ArrowLeft className="h-3 w-3" />
+        Modifier le véhicule ou la situation
+      </button>
     </div>
   );
 }
 
 function TaxTable({ rows, expert }: { rows: TaxRow[]; expert: boolean }) {
   return (
-    <table className="mt-4 w-full text-sm">
-      <thead>
-        <tr className="border-b border-border text-left text-xs uppercase text-muted-foreground">
-          <th className="py-2">Taxe</th>
-          {expert && <th className="py-2">Base légale</th>}
-          <th className="py-2 text-right">Montant</th>
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((r) => (
-          <tr key={r.code} className="border-b border-border/60 last:border-0">
-            <td className="py-2">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button className="flex items-center gap-2 text-left hover:underline">
-                    <span
-                      aria-hidden
-                      className="inline-block h-3 w-3 rounded-sm"
-                      style={{ backgroundColor: r.color }}
-                    />
-                    <span>{r.label}</span>
-                    <Info className="h-3 w-3 text-muted-foreground" />
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <div className="space-y-1">
-                    <p>{r.detail}</p>
-                    <p className="text-[10px] opacity-70">{r.legalRef}</p>
-                  </div>
-                </TooltipContent>
-              </Tooltip>
-            </td>
-            {expert && (
-              <td className="py-2 font-mono text-xs text-muted-foreground">{r.legalRef}</td>
-            )}
-            <td className="py-2 text-right tabular-nums">{formatCentsPrecise(r.amountCents)}</td>
+    <div className="mt-4 overflow-hidden rounded-lg border border-border">
+      <table className="w-full text-sm">
+        <thead className="bg-muted/30">
+          <tr className="text-left text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+            <th className="px-4 py-2.5">Taxe</th>
+            {expert && <th className="px-4 py-2.5">Base légale</th>}
+            <th className="px-4 py-2.5 text-right">Montant</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {rows.map((r, i) => {
+            const inactive = r.amountCents === 0;
+            return (
+              <tr
+                key={r.code}
+                className={
+                  i < rows.length - 1
+                    ? 'border-b border-border/60 transition-colors hover:bg-muted/20'
+                    : 'transition-colors hover:bg-muted/20'
+                }
+              >
+                <td className="px-4 py-3">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        className="flex items-center gap-2.5 text-left"
+                        aria-label={`Détails de ${r.label}`}
+                      >
+                        <span
+                          aria-hidden
+                          className="inline-block h-2.5 w-2.5 rounded-full"
+                          style={{ backgroundColor: inactive ? 'hsl(var(--muted))' : r.color }}
+                        />
+                        <span className={inactive ? 'text-muted-foreground' : ''}>{r.label}</span>
+                        <Info className="h-3 w-3 text-muted-foreground/60" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs">
+                      <div className="space-y-1">
+                        <p className="text-xs">{r.detail}</p>
+                        <p className="text-[10px] opacity-70">{r.legalRef}</p>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
+                </td>
+                {expert && (
+                  <td className="px-4 py-3 font-mono text-[11px] text-muted-foreground">
+                    {r.legalRef}
+                  </td>
+                )}
+                <td
+                  className={
+                    inactive
+                      ? 'num px-4 py-3 text-right text-muted-foreground'
+                      : 'num px-4 py-3 text-right font-medium'
+                  }
+                >
+                  {formatCentsPrecise(r.amountCents)}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

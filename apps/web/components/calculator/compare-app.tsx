@@ -122,44 +122,71 @@ export function CompareApp() {
       </Card>
 
       {rows && (
-        <Card>
-          <CardContent className="p-0">
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-sm">
-                <thead>
-                  <tr className="border-b border-border text-left text-xs uppercase text-muted-foreground">
-                    <th className="p-3">Région</th>
-                    <th className="p-3 text-right">Tarif CV</th>
-                    <th className="p-3 text-right">Y1 régionale</th>
-                    <th className="p-3 text-right">Y3 + Y6 malus</th>
-                    <th className="p-3 text-right">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rows.map((r, i) => (
-                    <tr key={r.regionCode} className="border-b border-border/60 last:border-0">
-                      <td className="p-3 font-medium">
-                        {i === 0 && <ArrowDown className="mr-1 inline h-3 w-3 text-green-600" />}
-                        {r.regionName}
-                      </td>
-                      <td className="p-3 text-right tabular-nums text-muted-foreground">
-                        {r.perCvRateEuros.toFixed(2)} €/CV
-                      </td>
-                      <td className="p-3 text-right tabular-nums">
-                        {formatCentsWhole(r.taxes.Y1)}
-                      </td>
-                      <td className="p-3 text-right tabular-nums">
-                        {formatCentsWhole(r.taxes.Y3 + r.taxes.Y6)}
-                      </td>
-                      <td className="p-3 text-right font-semibold tabular-nums">
-                        {formatCentsPrecise(r.totalCents)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+        <Card className="animate-fade-in overflow-hidden">
+          <div className="flex items-center justify-between gap-4 border-b border-border bg-muted/20 px-6 py-4">
+            <div>
+              <p className="text-sm font-medium">Résultats triés par coût croissant</p>
+              <p className="text-xs text-muted-foreground">
+                Région la moins chère : {rows[0]?.regionName} ·{' '}
+                {rows[0] ? formatCentsWhole(rows[0].totalCents) : '—'}
+              </p>
             </div>
-          </CardContent>
+            <div className="text-right">
+              <p className="text-xs text-muted-foreground">Écart min/max</p>
+              <p className="num text-sm font-semibold text-accent">
+                {rows.length > 1 && rows[0] && rows[rows.length - 1]
+                  ? formatCentsWhole(
+                      (rows[rows.length - 1]?.totalCents ?? 0) - (rows[0]?.totalCents ?? 0),
+                    )
+                  : '—'}
+              </p>
+            </div>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-sm">
+              <thead className="bg-muted/10">
+                <tr className="text-left text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                  <th className="px-6 py-3">Région</th>
+                  <th className="px-4 py-3 text-right">Tarif CV</th>
+                  <th className="px-4 py-3 text-right">Y1 régionale</th>
+                  <th className="px-4 py-3 text-right">Y3 + Y6 malus</th>
+                  <th className="px-6 py-3 text-right">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((r: Row, i: number) => (
+                  <tr
+                    key={r.regionCode}
+                    className={
+                      i === 0
+                        ? 'border-b border-border/60 bg-success/5 transition-colors last:border-0'
+                        : 'border-b border-border/60 transition-colors hover:bg-muted/20 last:border-0'
+                    }
+                  >
+                    <td className="px-6 py-3 font-medium">
+                      {i === 0 && (
+                        <ArrowDown
+                          className="mr-2 inline h-3.5 w-3.5 text-success"
+                          aria-label="Région la moins chère"
+                        />
+                      )}
+                      {r.regionName}
+                    </td>
+                    <td className="num px-4 py-3 text-right text-muted-foreground">
+                      {r.perCvRateEuros.toFixed(2)} €
+                    </td>
+                    <td className="num px-4 py-3 text-right">{formatCentsWhole(r.taxes.Y1)}</td>
+                    <td className="num px-4 py-3 text-right">
+                      {formatCentsWhole(r.taxes.Y3 + r.taxes.Y6)}
+                    </td>
+                    <td className="num px-6 py-3 text-right font-semibold">
+                      {formatCentsPrecise(r.totalCents)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </Card>
       )}
     </div>

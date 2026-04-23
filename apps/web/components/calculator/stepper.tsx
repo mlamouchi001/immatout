@@ -20,17 +20,17 @@ export function Stepper({ steps, currentIndex }: { steps: StepperStep[]; current
             <span
               aria-current={current ? 'step' : undefined}
               className={cn(
-                'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-sm font-medium transition-colors',
-                done && 'border-primary bg-primary text-primary-foreground',
-                current && 'border-primary text-primary',
+                'flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-semibold transition-colors',
+                done && 'border-accent bg-accent text-accent-foreground',
+                current && 'border-accent text-accent',
                 !done && !current && 'border-border text-muted-foreground',
               )}
             >
-              {done ? <Check className="h-4 w-4" /> : i + 1}
+              {done ? <Check className="h-3.5 w-3.5" /> : i + 1}
             </span>
             <span
               className={cn(
-                'whitespace-nowrap text-sm',
+                'whitespace-nowrap text-sm font-medium',
                 (done || current) && 'text-foreground',
                 !done && !current && 'text-muted-foreground',
               )}
@@ -40,7 +40,10 @@ export function Stepper({ steps, currentIndex }: { steps: StepperStep[]; current
             {i < steps.length - 1 && (
               <span
                 aria-hidden
-                className={cn('h-px w-8 transition-colors', done ? 'bg-primary' : 'bg-border')}
+                className={cn(
+                  'h-px w-6 transition-colors sm:w-10',
+                  done ? 'bg-accent' : 'bg-border',
+                )}
               />
             )}
           </li>

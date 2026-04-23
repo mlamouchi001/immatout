@@ -120,12 +120,12 @@ function OriginCard({
         }
       }}
       className={cn(
-        'flex cursor-pointer items-center gap-3 p-4 transition-colors hover:border-primary/50',
-        active && 'border-primary bg-primary/5',
+        'flex cursor-pointer items-center gap-3 rounded-lg border p-4 text-sm transition-all hover:border-accent/40 hover:bg-muted/30',
+        active ? 'border-accent bg-accent/5 ring-1 ring-accent/30 shadow-card' : 'border-border',
       )}
     >
       {children}
-      {active && <Check className="ml-auto h-4 w-4 text-primary" />}
+      {active && <Check className="ml-auto h-4 w-4 text-accent" />}
     </Card>
   );
 }
