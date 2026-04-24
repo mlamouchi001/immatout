@@ -7,6 +7,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: `${base}/`, lastModified: now, changeFrequency: 'weekly', priority: 1 },
     { url: `${base}/compare`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${base}/referentiels`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    {
+      url: `${base}/referentiels/regions`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${base}/referentiels/malus-co2`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${base}/referentiels/malus-poids`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+    {
+      url: `${base}/referentiels/decote`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.6,
+    },
+    {
+      url: `${base}/referentiels/catalogue`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
     { url: `${base}/documents`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
     {
       url: `${base}/mentions-legales`,

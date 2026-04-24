@@ -38,6 +38,9 @@ export function SiteFooter() {
           <Link href="/compare" className="text-muted-foreground hover:text-foreground">
             Comparateur 18 régions
           </Link>
+          <Link href="/referentiels" className="text-muted-foreground hover:text-foreground">
+            Référentiels &amp; barèmes
+          </Link>
           <Link href="/documents" className="text-muted-foreground hover:text-foreground">
             Pièces à fournir
           </Link>

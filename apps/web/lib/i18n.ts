@@ -10,6 +10,7 @@ const FR_FR = {
   'nav.home': 'Accueil',
   'nav.documents': 'Documents',
   'nav.compare': 'Comparateur',
+  'nav.referentials': 'Référentiels',
   'stepper.origin.title': 'Origine du véhicule',
   'stepper.origin.fr': '🇫🇷 Acheté en France',
   'stepper.origin.eu': '🇪🇺 Importé de l’UE',

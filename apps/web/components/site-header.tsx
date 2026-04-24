@@ -21,6 +21,7 @@ export function SiteHeader() {
         <nav aria-label="Navigation principale" className="flex items-center gap-1">
           <HeaderLink href="/">{t('nav.home')}</HeaderLink>
           <HeaderLink href="/compare">{t('nav.compare')}</HeaderLink>
+          <HeaderLink href="/referentiels">{t('nav.referentials')}</HeaderLink>
           <HeaderLink href="/documents">{t('nav.documents')}</HeaderLink>
         </nav>
       </div>
