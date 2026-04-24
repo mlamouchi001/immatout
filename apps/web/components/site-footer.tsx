@@ -35,14 +35,26 @@ export function SiteFooter() {
           <Link href="/mentions-legales" className="text-muted-foreground hover:text-foreground">
             Mentions légales
           </Link>
+          <Link
+            href="/guide/calcul-carte-grise-2026"
+            className="text-muted-foreground hover:text-foreground"
+          >
+            Guide calcul 2026
+          </Link>
           <Link href="/compare" className="text-muted-foreground hover:text-foreground">
             Comparateur 18 régions
           </Link>
           <Link href="/referentiels" className="text-muted-foreground hover:text-foreground">
             Référentiels &amp; barèmes
           </Link>
+          <Link href="/faq" className="text-muted-foreground hover:text-foreground">
+            FAQ
+          </Link>
           <Link href="/documents" className="text-muted-foreground hover:text-foreground">
             Pièces à fournir
+          </Link>
+          <Link href="/a-propos" className="text-muted-foreground hover:text-foreground">
+            À propos
           </Link>
         </nav>
       </div>

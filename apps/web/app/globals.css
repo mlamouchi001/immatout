@@ -89,4 +89,48 @@
   .section-eyebrow {
     @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground;
   }
+
+  /* Lightweight prose styling for editorial pages (guides, FAQ, lexique). */
+  .prose-like h2 {
+    @apply mt-10 text-2xl font-bold tracking-tight;
+  }
+  .prose-like h3 {
+    @apply mt-8 text-lg font-semibold tracking-tight;
+  }
+  .prose-like h4 {
+    @apply mt-6 text-base font-semibold;
+  }
+  .prose-like p {
+    @apply text-[0.95rem] leading-relaxed;
+  }
+  .prose-like ul {
+    @apply list-disc space-y-1.5 pl-5;
+  }
+  .prose-like ol {
+    @apply list-decimal space-y-1.5 pl-5;
+  }
+  .prose-like a {
+    @apply text-accent underline-offset-4 hover:underline;
+  }
+  .prose-like strong {
+    @apply font-semibold text-foreground;
+  }
+  .prose-like code {
+    @apply rounded bg-muted px-1.5 py-0.5 font-mono text-[0.85em];
+  }
+  .prose-like blockquote {
+    @apply border-l-2 border-accent/40 bg-muted/20 py-2 pl-4 text-muted-foreground;
+  }
+  .prose-like table {
+    @apply w-full border-collapse overflow-hidden rounded-lg border border-border text-sm;
+  }
+  .prose-like thead {
+    @apply bg-muted/30;
+  }
+  .prose-like th {
+    @apply px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wider text-muted-foreground;
+  }
+  .prose-like td {
+    @apply border-t border-border/60 px-3 py-2 align-top;
+  }
 }
