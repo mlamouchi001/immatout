@@ -34,7 +34,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Carte grise import UE 2026 : quitus, décote, prix exact',
+  title: 'Carte grise import UE 2026 : guide complet',
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'Carte grise import UE', description: DESCRIPTION },

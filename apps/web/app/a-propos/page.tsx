@@ -11,9 +11,9 @@ const PUBLISHED = '2026-04-01';
 const UPDATED = '2026-04-24';
 
 export const metadata: Metadata = {
-  title: 'À propos — Immatout, simulateur carte grise 2026',
+  title: 'À propos — Immatout, simulateur carte grise',
   description:
-    'Immatout est un simulateur indépendant du coût de la carte grise en France, conforme à la Loi de Finances 2026, mis à disposition gratuitement et sans publicité.',
+    'Immatout : simulateur indépendant et gratuit du coût de la carte grise en France, open-source, conforme à la Loi de Finances 2026, sans publicité.',
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'À propos d’Immatout', description: ORG_DESCRIPTION },
 };

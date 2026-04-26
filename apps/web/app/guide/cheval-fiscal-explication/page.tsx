@@ -33,8 +33,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Cheval fiscal (CV) 2026 : formule, calcul, où le trouver',
-  description: DESCRIPTION,
+  title: 'Cheval fiscal (CV) 2026 : calcul, formule',
+  description:
+    'Comprendre le cheval fiscal en 2026 : formule officielle (CO₂ + kW), où le trouver sur la carte grise (case P.6), correspondance kW vs CV.',
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'Cheval fiscal (CV) 2026', description: DESCRIPTION },
 };

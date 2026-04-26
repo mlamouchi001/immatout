@@ -23,7 +23,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Prix carte grise 2026 : tableau par CV, par région, par énergie',
+  title: 'Prix carte grise 2026 : combien ça coûte ?',
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'Prix carte grise 2026', description: DESCRIPTION },

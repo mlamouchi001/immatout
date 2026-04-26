@@ -33,8 +33,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Carte grise occasion France 2026 : prix, décote 10 ans, démarches',
-  description: DESCRIPTION,
+  title: 'Carte grise occasion France 2026 : prix',
+  description:
+    'Changement de carte grise pour un véhicule d’occasion française 2026 : seule Y1 est due, décote 50 % après 10 ans, démarches en ligne ANTS en 15 minutes.',
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'Carte grise occasion France 2026', description: DESCRIPTION },
 };

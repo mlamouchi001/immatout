@@ -34,8 +34,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Documents carte grise 2026 : Cerfa 13750, 15776, non-gage',
-  description: DESCRIPTION,
+  title: 'Documents carte grise 2026 : Cerfa, non-gage',
+  description:
+    'Liste complète des documents carte grise 2026 : Cerfa 13750, 15776, non-gage, contrôle technique, justificatif domicile, quitus, par cas d’immatriculation.',
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'Documents carte grise 2026', description: DESCRIPTION },
 };

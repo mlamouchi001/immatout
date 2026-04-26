@@ -40,6 +40,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: `${base}/`, lastModified: now, changeFrequency: 'weekly', priority: 1 },
 
+    // Index pages (nouvelles, priorité 0.9 — pages hub)
+    { url: `${base}/guide`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${base}/carte-grise`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+
     // Guides (priorité 0,8 — contenu pilier SEO)
     ...GUIDES.map((slug) => ({
       url: `${base}/guide/${slug}`,

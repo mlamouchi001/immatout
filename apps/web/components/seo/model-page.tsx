@@ -21,7 +21,7 @@ export interface ModelContent {
 
 export function makeModelMetadata(content: ModelContent): Metadata {
   const path = `/carte-grise/${content.slug}`;
-  const title = `Carte grise ${content.niceName} 2026 : prix par motorisation`;
+  const title = `Carte grise ${content.niceName} 2026 : prix`;
   const description = content.isEv
     ? `Carte grise ${content.niceName} 2026 : 13,76 € partout en France (véhicule électrique exonéré de Y1, Y3, Y6).`
     : `Prix carte grise ${content.niceName} 2026 pour chaque motorisation, calcul par région (Paris, Lyon, Marseille…), malus CO₂ et poids.`;

@@ -33,8 +33,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Carte grise véhicule électrique 2026 : 13,76 € pour Tesla, Zoé et tous les EV',
-  description: DESCRIPTION,
+  title: 'Carte grise voiture électrique 2026 : 13,76 €',
+  description:
+    'Carte grise EV 2026 : exonération totale Y1, Y3, Y6. Coût 13,76 € pour Tesla, Zoé, ID.3, i3 et tous les véhicules 100 % électriques en France.',
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'Carte grise EV 2026', description: DESCRIPTION },
 };

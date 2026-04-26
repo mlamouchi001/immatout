@@ -143,7 +143,7 @@ const TERMS: Array<{ term: string; definition: string }> = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Lexique carte grise 2026 : CIBS, CV fiscal, WLTP, TMOM, IDFM',
+  title: 'Lexique carte grise : CIBS, CV, WLTP, TMOM',
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'Lexique carte grise 2026', description: DESCRIPTION },

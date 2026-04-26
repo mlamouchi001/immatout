@@ -22,8 +22,8 @@ export interface RegionContent {
 
 export function makeRegionMetadata(content: RegionContent): Metadata {
   const path = `/carte-grise/${content.slug}`;
-  const title = `Carte grise ${content.niceName} 2026 : prix et démarches`;
-  const description = `Prix de la carte grise en ${content.niceName} pour 2026, tarif du cheval fiscal, surcharge IDFM si applicable, exemples chiffrés et démarches en ligne.`;
+  const title = `Carte grise ${content.niceName} 2026 : prix`;
+  const description = `Prix carte grise ${content.niceName} 2026 : tarif cheval fiscal, surcharge IDFM, exemples chiffrés et démarches en ligne ANTS.`;
   return {
     title,
     description,

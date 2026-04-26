@@ -34,7 +34,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Malus CO₂ 2026 : barème officiel, seuil 108 g/km, plafond 80 000 €',
+  title: 'Malus CO₂ 2026 : barème, seuil 108 g/km',
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'Malus CO₂ 2026 — barème officiel', description: DESCRIPTION },

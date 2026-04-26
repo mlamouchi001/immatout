@@ -19,11 +19,11 @@ const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000';
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Immatout — Calcul officiel du coût de la carte grise (France 2026)',
+    default: 'Calcul carte grise 2026 · Immatout',
     template: '%s · Immatout',
   },
   description:
-    "Calcul exact du coût d'immatriculation d'un véhicule en France : taxe régionale, malus CO₂, malus au poids, formation, gestion, acheminement. Sources : CIBS L.421-29 à L.421-92, Loi de Finances 2026.",
+    'Simulez le coût de votre carte grise en 30 s : barèmes Loi de Finances 2026, comparateur 18 régions, export PDF. Gratuit, sans pub.',
   keywords: [
     'carte grise',
     'certificat immatriculation',

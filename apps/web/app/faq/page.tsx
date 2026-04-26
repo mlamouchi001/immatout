@@ -139,8 +139,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'FAQ carte grise 2026 : toutes vos questions — Immatout',
-  description: DESCRIPTION,
+  title: 'FAQ carte grise 2026 : 25 questions/réponses',
+  description:
+    'FAQ carte grise 2026 : prix, taxes, malus CO₂ et poids, exonérations, import UE/hors UE. Toutes les réponses aux 25 questions les plus fréquentes.',
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'FAQ carte grise 2026', description: DESCRIPTION },
 };

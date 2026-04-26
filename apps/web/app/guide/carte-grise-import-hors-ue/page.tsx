@@ -33,7 +33,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Carte grise import hors UE 2026 : douane, TVA, taxes',
+  title: 'Carte grise import hors UE 2026',
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'Carte grise import hors UE', description: DESCRIPTION },

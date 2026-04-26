@@ -33,8 +33,9 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Malus au poids 2026 : seuil 1500 kg, tranches, abattements — guide officiel',
-  description: DESCRIPTION,
+  title: 'Malus au poids 2026 : seuil 1500 kg, tranches',
+  description:
+    'Malus au poids 2026 (TMOM) : seuil 1500 kg, 5 tranches 10-30 €/kg, abattements famille, hybride, PHEV, 8+ places. Exemples chiffrés.',
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'Malus au poids 2026 — guide officiel', description: DESCRIPTION },
 };

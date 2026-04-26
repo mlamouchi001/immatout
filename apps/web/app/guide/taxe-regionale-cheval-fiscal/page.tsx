@@ -34,7 +34,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Taxe régionale carte grise 2026 : tarif du cheval fiscal par région',
+  title: 'Taxe régionale 2026 : tarif cheval fiscal',
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: { url: PATH, title: 'Taxe régionale 2026', description: DESCRIPTION },
