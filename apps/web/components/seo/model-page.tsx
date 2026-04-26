@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 
 import { ArticleShell } from '@/components/seo/article-shell';
 import { JsonLd } from '@/components/seo/json-ld';
@@ -38,7 +39,13 @@ export function makeModelMetadata(content: ModelContent): Metadata {
  * the production catalog via Prisma; falls back to a textual explanation if
  * no data is available yet.
  */
-export async function ModelPage({ content }: { content: ModelContent }) {
+export async function ModelPage({
+  content,
+  extraContent,
+}: {
+  content: ModelContent;
+  extraContent?: ReactNode;
+}) {
   const trims = await prisma.catalogTrim.findMany({
     where: {
       model: {
@@ -176,6 +183,8 @@ export async function ModelPage({ content }: { content: ModelContent }) {
             <strong>Import UE</strong> : ajouter quitus fiscal + COC + contrôle technique français.
           </li>
         </ul>
+
+        {extraContent}
 
         <RelatedGuides
           links={[

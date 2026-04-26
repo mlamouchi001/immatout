@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 
 import type { RegionScaleEntry } from '@immatout/data';
 import { getRegionsScale } from '@immatout/data';
@@ -39,7 +40,13 @@ export function makeRegionMetadata(content: RegionContent): Metadata {
  * coefficients from @immatout/data and computes example Y1 amounts for four
  * typical vehicles.
  */
-export function RegionPage({ content }: { content: RegionContent }) {
+export function RegionPage({
+  content,
+  extraContent,
+}: {
+  content: RegionContent;
+  extraContent?: ReactNode;
+}) {
   const scale = getRegionsScale(2026);
   const region = scale.regions.find((r: RegionScaleEntry) => r.regionCode === content.regionCode);
   if (!region) throw new Error(`Region ${content.regionCode} not in 2026 scale`);
@@ -213,6 +220,8 @@ export function RegionPage({ content }: { content: RegionContent }) {
           . Les délais sont identiques sur tout le territoire : certificat provisoire par mail sous
           48 h, carte grise définitive par courrier en 7 à 10 jours.
         </p>
+
+        {extraContent}
 
         <RelatedGuides
           links={[
