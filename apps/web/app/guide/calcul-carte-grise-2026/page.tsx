@@ -35,7 +35,7 @@ const FAQ = [
 ];
 
 export const metadata: Metadata = {
-  title: 'Calcul carte grise 2026 : méthode officielle CIBS',
+  title: 'Calcul carte grise 2026 : méthode CIBS',
   description:
     'Comprendre le calcul du coût d’une carte grise en France 2026 : les 6 taxes (Y1 à Y6), la formule officielle, plafonds, exonérations, 4 exemples chiffrés.',
   alternates: { canonical: PATH },

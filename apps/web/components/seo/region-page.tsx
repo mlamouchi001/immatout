@@ -15,14 +15,16 @@ const PUBLISHED = '2026-04-01';
 export interface RegionContent {
   slug: string; // e.g. 'ile-de-france'
   regionCode: string; // e.g. 'IDF'
-  niceName: string; // e.g. 'Île-de-France'
+  niceName: string; // e.g. 'Île-de-France' (used in H1 + body)
+  shortName?: string; // optional override for title only (e.g. 'PACA' instead of 'Provence-Alpes-Côte d'Azur')
   departments: string; // quick description
   intro: string; // one paragraph of local colour
 }
 
 export function makeRegionMetadata(content: RegionContent): Metadata {
   const path = `/carte-grise/${content.slug}`;
-  const title = `Carte grise ${content.niceName} 2026 : prix`;
+  const titleName = content.shortName ?? content.niceName;
+  const title = `Carte grise ${titleName} 2026 : prix`;
   const description = `Prix carte grise ${content.niceName} 2026 : tarif cheval fiscal, surcharge IDFM, exemples chiffrés et démarches en ligne ANTS.`;
   return {
     title,
