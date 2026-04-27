@@ -52,8 +52,11 @@ COPY --from=build /app/apps/web/dist/seed-catalog.cjs ./seed-catalog.cjs
 
 # Bring data-fix SQL scripts (idempotent maintenance scripts that run at boot
 # alongside prisma migrate deploy — used for one-shot data consolidations
-# that can't be expressed in a Prisma migration).
+# that can't be expressed in a Prisma migration). Stored in /data-fixes/ to
+# avoid colliding with the Prisma migration directory layout (Prisma expects
+# `<timestamp>_label/migration.sql` and chokes on anything else).
 COPY --from=build /app/apps/web/prisma/migrations ./apps/web/prisma/migrations
+COPY --from=build /app/apps/web/prisma/data-fixes ./apps/web/prisma/data-fixes
 
 # Prisma CLI for migrate deploy at runtime, plus psql client for data-fix scripts.
 # (Alpine base, hence apk; see line 4 — `node:20-alpine`.)
@@ -69,4 +72,4 @@ EXPOSE 3000
 #   4. EEA seed is skipped unless CATALOG_SEED_EEA=1 is set — it's heavier
 #      (~30s + 13k upserts) and the catalog works fine with just ADEME.
 #   5. Start the Next.js standalone server.
-CMD ["sh", "-c", "cd apps/web && prisma migrate deploy && cd /app && (for f in apps/web/prisma/migrations/2026-*/script.sql; do if [ -f \"$f\" ]; then echo \"[data-fix] running $f\"; psql \"$DATABASE_URL\" -v ON_ERROR_STOP=0 -f \"$f\" || echo \"[data-fix] $f failed (non-fatal)\"; fi; done) && node seed-catalog.cjs ademe && if [ \"$CATALOG_SEED_EEA\" = \"1\" ]; then node seed-catalog.cjs eea; fi && node apps/web/server.js"]
+CMD ["sh", "-c", "cd apps/web && prisma migrate deploy && cd /app && (for f in apps/web/prisma/data-fixes/*/script.sql; do if [ -f \"$f\" ]; then echo \"[data-fix] running $f\"; psql \"$DATABASE_URL\" -f \"$f\" || echo \"[data-fix] $f failed (non-fatal)\"; fi; done) && node seed-catalog.cjs ademe && if [ \"$CATALOG_SEED_EEA\" = \"1\" ]; then node seed-catalog.cjs eea; fi && node apps/web/server.js"]
