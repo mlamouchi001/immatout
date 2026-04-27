@@ -69,4 +69,4 @@ EXPOSE 3000
 #   4. EEA seed is skipped unless CATALOG_SEED_EEA=1 is set — it's heavier
 #      (~30s + 13k upserts) and the catalog works fine with just ADEME.
 #   5. Start the Next.js standalone server.
-CMD ["sh", "-c", "cd apps/web && prisma migrate deploy && cd /app && for f in apps/web/prisma/migrations/2026-*/script.sql; do [ -f \"$f\" ] && echo \"[data-fix] running $f\" && psql \"$DATABASE_URL\" -f \"$f\"; done && node seed-catalog.cjs ademe && if [ \"$CATALOG_SEED_EEA\" = \"1\" ]; then node seed-catalog.cjs eea; fi && node apps/web/server.js"]
+CMD ["sh", "-c", "cd apps/web && prisma migrate deploy && cd /app && (for f in apps/web/prisma/migrations/2026-*/script.sql; do if [ -f \"$f\" ]; then echo \"[data-fix] running $f\"; psql \"$DATABASE_URL\" -v ON_ERROR_STOP=0 -f \"$f\" || echo \"[data-fix] $f failed (non-fatal)\"; fi; done) && node seed-catalog.cjs ademe && if [ \"$CATALOG_SEED_EEA\" = \"1\" ]; then node seed-catalog.cjs eea; fi && node apps/web/server.js"]
