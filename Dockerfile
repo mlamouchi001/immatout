@@ -56,7 +56,8 @@ COPY --from=build /app/apps/web/dist/seed-catalog.cjs ./seed-catalog.cjs
 COPY --from=build /app/apps/web/prisma/migrations ./apps/web/prisma/migrations
 
 # Prisma CLI for migrate deploy at runtime, plus psql client for data-fix scripts.
-RUN npm i -g prisma@6.19.3 && apt-get update && apt-get install -y --no-install-recommends postgresql-client && rm -rf /var/lib/apt/lists/*
+# (Alpine base, hence apk; see line 4 — `node:20-alpine`.)
+RUN npm i -g prisma@6.19.3 && apk add --no-cache postgresql-client
 
 EXPOSE 3000
 
