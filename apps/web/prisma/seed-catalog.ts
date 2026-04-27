@@ -176,8 +176,42 @@ function naturalKey(parts: {
 // Upsert helpers
 // ---------------------------------------------------------------------------
 
+/**
+ * Canonical aliases — collapses EEA/ADEME naming variants into a single brand.
+ *
+ * EEA distinguishes legal entities (e.g. "MERCEDES-BENZ AG", "MERCEDES BENZ",
+ * "MERCEDES AMG") that all map to one consumer brand. ADEME is cleaner but
+ * still uses different casing/punctuation than EEA. Without this map, we end
+ * up with `MERCEDES` (9 ADEME trims) and `MERCEDES BENZ` (402 EEA trims) as
+ * separate brands and the public API filter `?make=MERCEDES` only sees the
+ * first one.
+ *
+ * Keys are written in the post-`normalizeMakeName` form (uppercased, single
+ * spaces, no punctuation collapsing — that's done before lookup).
+ */
+const MAKE_ALIASES: Record<string, string> = {
+  'MERCEDES BENZ': 'MERCEDES',
+  'MERCEDES BENZ AG': 'MERCEDES',
+  'MERCEDES-BENZ': 'MERCEDES',
+  'MERCEDES AMG': 'MERCEDES',
+  'B M W': 'BMW',
+  'BMW I': 'BMW',
+  'B.M.W.': 'BMW',
+  'M.G.': 'MG',
+  'MC LAREN': 'MCLAREN',
+  LAMBORGHIN: 'LAMBORGHINI',
+  'ROLLS ROYC': 'ROLLS ROYCE',
+  'MITSUBISHI MOTORS CORPORATION': 'MITSUBISHI',
+  'MITSUBISHI MOTORS THAILAND': 'MITSUBISHI',
+  CITROËN: 'CITROEN',
+  VAUXHALL: 'OPEL', // same vehicles, UK badge
+};
+
 function normalizeMakeName(raw: string): string {
-  return raw.trim().toUpperCase().replace(/\s+/g, ' ');
+  // Drop punctuation that EEA uses inconsistently (dots, hyphens), uppercase,
+  // collapse whitespace. Then look up against the alias table.
+  const cleaned = raw.trim().toUpperCase().replace(/[.\-]/g, ' ').replace(/\s+/g, ' ').trim();
+  return MAKE_ALIASES[cleaned] ?? cleaned;
 }
 
 async function upsertMake(rawName: string, source: 'ademe' | 'eea'): Promise<number> {
