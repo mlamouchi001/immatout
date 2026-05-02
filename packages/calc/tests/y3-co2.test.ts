@@ -72,12 +72,14 @@ describe('Y3 malus CO₂', () => {
       }),
     );
     // age: 45 months → tier 37-48 → 33 %
-    // 2022 not loaded yet → fallback to closest earlier loaded scale: 2024.
-    // 150 g in 2024 grid = 2205 €.
-    // after decote: round(2205 × 0.67 × 100) = 147735 cents = 1477.35 €.
+    // 2022 not loaded yet → fallback to closest earlier loaded scale: 2023
+    // (added to fix a real-world ANTS divergence on 2023 vehicles where the
+    // grid was previously falling back to the much harsher 2024 grid).
+    // 150 g in 2023 grid = 1504 €.
+    // after decote: round(1504 × 0.67 × 100) = 100768 cents = 1007.68 €.
     expect(y3.decoteCoefficient).toBe(0.33);
     expect(y3.scaleYear).toBe(2022);
-    expect(y3.amountCents).toBe(147735);
+    expect(y3.amountCents).toBe(100768);
   });
 
   it('uses the 2025 scale verbatim when 1ʳᵉ immatriculation is 2025', () => {

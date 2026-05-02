@@ -174,11 +174,11 @@
         "household": { "dependentChildren": 0, "hasDisabilityCard": false, "isLegalEntity": false }
       },
       "expected": {
-        "totalCents": 438771,
+        "totalCents": 391804,
         "breakdown": {
           "Y1": 55160,
           "Y2": 0,
-          "Y3": 147735,
+          "Y3": 100768,
           "Y4": 1100,
           "Y5": 276,
           "Y6": 234500

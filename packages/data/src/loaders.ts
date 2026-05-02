@@ -6,6 +6,7 @@
  */
 
 import regionsScale2026 from '../scales/regions-cv-2026.json';
+import malusCo22023 from '../scales/malus-co2-2023.json';
 import malusCo22024 from '../scales/malus-co2-2024.json';
 import malusCo22025 from '../scales/malus-co2-2025.json';
 import malusCo22026 from '../scales/malus-co2-2026.json';
@@ -43,6 +44,7 @@ function regionsByYear(): Record<number, RegionsScaleFile> {
 function co2ByYear(): Record<number, Co2MalusFile> {
   if (_co2ByYear) return _co2ByYear;
   _co2ByYear = {
+    2023: Co2MalusFileSchema.parse(malusCo22023),
     2024: Co2MalusFileSchema.parse(malusCo22024),
     2025: Co2MalusFileSchema.parse(malusCo22025),
     2026: Co2MalusFileSchema.parse(malusCo22026),
