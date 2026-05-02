@@ -37,6 +37,7 @@ export const metadata: Metadata = {
     'simulateur carte grise',
   ],
   authors: [{ name: 'Immatout' }],
+  alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: 'fr_FR',

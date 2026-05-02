@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 
 import { ArticleShell } from '@/components/seo/article-shell';
 import { JsonLd } from '@/components/seo/json-ld';
+import { ModelExtraContent } from '@/components/seo/model-extra-content';
 import { RelatedGuides } from '@/components/seo/related-guides';
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, type FaqEntry } from '@/lib/seo';
 import { prisma } from '@/lib/prisma';
@@ -184,7 +185,7 @@ export async function ModelPage({
           </li>
         </ul>
 
-        {extraContent}
+        {extraContent ?? <ModelExtraContent make={content.make} model={content.model} />}
 
         <RelatedGuides
           links={[

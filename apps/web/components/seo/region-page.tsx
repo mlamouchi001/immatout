@@ -6,6 +6,7 @@ import { getRegionsScale } from '@immatout/data';
 
 import { ArticleShell } from '@/components/seo/article-shell';
 import { JsonLd } from '@/components/seo/json-ld';
+import { RegionExtraContent } from '@/components/seo/region-extra-content';
 import { RelatedGuides } from '@/components/seo/related-guides';
 import { articleJsonLd, breadcrumbJsonLd, faqJsonLd } from '@/lib/seo';
 import type { FaqEntry } from '@/lib/seo';
@@ -221,7 +222,7 @@ export function RegionPage({
           48 h, carte grise définitive par courrier en 7 à 10 jours.
         </p>
 
-        {extraContent}
+        {extraContent ?? <RegionExtraContent regionCode={content.regionCode} />}
 
         <RelatedGuides
           links={[
